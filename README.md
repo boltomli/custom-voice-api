@@ -1,6 +1,10 @@
 # Demo
 
-Refer to [Capacitor from Ionic](https://capacitor.ionicframework.com/docs/) for dependencies.
+This is a demo to try [Azure Custom Voice](https://customvoice.ai) on mobile, as well as web/desktop.
+
+## Dependencies
+
+Refer to [Capacitor from Ionic](https://capacitor.ionicframework.com/docs/).
 
 ## Init
 
@@ -44,4 +48,8 @@ cd electron && npm run electron:start
 
 ## Limitations
 
-This is a work in progress.
+This is a work in progress. Prepare data like <https://github.com/boltomli/Data-for-CustomVoice.AI> to create models and deploy on <https://customvoice.ai>.
+
+## TODO
+
+Manage data? Record and upload data? Feel free to issue, fork, PR.
