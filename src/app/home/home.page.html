@@ -22,31 +22,17 @@
 
   <ion-card [class.hide]="!token">
     <ion-card-header>
-      <ion-card-subtitle>Voice Select</ion-card-subtitle>
+      <ion-card-subtitle>Models</ion-card-subtitle>
     </ion-card-header>
     <ion-list>
-      <ion-list-header>Language</ion-list-header>
-      <ion-select [(ngModel)]="language">
-        <ion-select-option value="en-US">English (United States)</ion-select-option>
-      </ion-select>
-    </ion-list>
-    <ion-list>
-      <ion-list-header>Gender</ion-list-header>
-      <ion-select [(ngModel)]="gender" interface="popover">
-        <ion-select-option value="Male">Male</ion-select-option>
-      </ion-select>
-    </ion-list>
-    <ion-list>
-      <ion-list-header>Voice</ion-list-header>
-      <ion-select [(ngModel)]="voice" (ionChange)="voiceSelected();">
-        <ion-select-option *ngFor="let item of voice_items">
-          {{ item }}
-        </ion-select-option>
-      </ion-select>
+      <ion-list-header>Model</ion-list-header>
+      <ion-item *ngFor="let item of models" (click)="selectModel(item);">
+          {{ item.id }} - {{ item.name }} - {{ item.locale }} - {{ item.description }}
+      </ion-item>
     </ion-list>
     <ion-card-subtitle>Text to Speak</ion-card-subtitle>
     <ion-textarea [(ngModel)]="text" placeholder="Input text to speak here"></ion-textarea>
-    <ion-button expand="block" (click)="speakText();">Speak</ion-button>
+    <ion-button expand="block" (click)="speakText();">Test</ion-button>
   </ion-card>
 
   <ion-card>
