@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Platform, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import xmlbuilder from 'xmlbuilder/lib';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +30,8 @@ export class HomePage {
     private platform: Platform,
     private storage: Storage,
     private http: HttpClient,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private audioContext: AudioContext
   ) {
     this.platform.ready().then(() => {
       this.storage.get('region').then((region) => {
@@ -121,8 +123,67 @@ export class HomePage {
     if (endpoint.status === 'Succeeded') {
       this.endpoint = endpoint.endpointUrls.Ssml;
       this.locale = endpoint.locale;
-      this.gender = endpoint.models[0].properties.gender;
+      this.gender = endpoint.models[0].properties.Gender;
       this.name = endpoint.name;
+    } else {
+      this.toastCtrl.create({
+        message: 'Endpoint is not ready yet ' + endpoint.status,
+        duration: 1000
+      }).then((toast) => {
+        toast.present();
+      });
+    }
+  }
+
+  speakText() {
+    if (!this.text) {
+      this.toastCtrl.create({
+        message: 'No text to speak.',
+        duration: 1000
+      }).then((toast) => {
+        toast.present();
+      });
+    } else {
+      const ssml_doc = xmlbuilder.create('speak')
+        .att('version', '1.0')
+        .att('xml:lang', this.locale.toLowerCase())
+        .ele('voice')
+        .att('xml:lang', this.locale.toLowerCase())
+        .att('xml:gender', this.gender)
+        .att('name', this.name)
+        .txt(this.text)
+        .end().toString();
+      this.http.post(this.endpoint, ssml_doc, {
+        headers: {
+          'content-type': 'application/ssml+xml',
+          'X-Microsoft-OutputFormat' : 'riff-16khz-16bit-mono-pcm',
+          'Authorization': 'Bearer ' + this.token,
+          'X-Search-AppId': '07D3234E49CE426DAA29772419F436CA',
+          'X-Search-ClientID': '1ECFAE91408841A480F00935DC390960'
+        },
+        responseType: 'arraybuffer'
+      }).subscribe((synth) => {
+        this.audioContext.decodeAudioData(synth).then((buffer) => {
+          const src = this.audioContext.createBufferSource();
+          src.buffer = buffer;
+          src.connect(this.audioContext.destination);
+          src.start(0);
+        }, (err: Error) => {
+          this.toastCtrl.create({
+            message: err.message,
+            duration: 1000
+          }).then((toast) => {
+            toast.present();
+          });
+        });
+      }, (err: Error) => {
+        this.toastCtrl.create({
+          message: err.message,
+          duration: 1000
+        }).then((toast) => {
+          toast.present();
+        });
+      });
     }
   }
 
