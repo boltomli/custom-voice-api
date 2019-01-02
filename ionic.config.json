@@ -1,0 +1,7 @@
+{
+  "name": "custom-voice-api",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
