@@ -22,12 +22,12 @@
 
   <ion-card [class.hide]="!token">
     <ion-card-header>
-      <ion-card-subtitle>Models</ion-card-subtitle>
+      <ion-card-subtitle>Endpoints</ion-card-subtitle>
     </ion-card-header>
     <ion-list>
-      <ion-list-header>Model</ion-list-header>
-      <ion-item *ngFor="let item of models" (click)="selectModel(item);">
-          {{ item.id }} - {{ item.name }} - {{ item.locale }} - {{ item.description }}
+      <ion-list-header>Endpoint</ion-list-header>
+      <ion-item *ngFor="let item of endpoints" (click)="selectEndpoint(item);">
+          {{ item.endpointUrls.Ssml }} - {{ item.name }} - {{ item.locale }} - {{ item.description }}
       </ion-item>
     </ion-list>
     <ion-card-subtitle>Text to Speak</ion-card-subtitle>
