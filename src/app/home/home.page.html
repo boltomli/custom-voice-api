@@ -1,12 +1,51 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      Custom Voice
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://beta.ionicframework.com/docs/">docs</a> will be your guide.</p>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Get Started</ion-card-subtitle>
+      <ion-card-title>Welcome to Custom Voice</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="none">
+        <ion-item><ion-icon name="information-circle-outline"></ion-icon><a target="_blank" rel="noopener" href="https://azure.microsoft.com/try/cognitive-services/">A valid Speech Services key</a></ion-item>
+        <ion-item><ion-icon name="information-circle-outline"></ion-icon><a target="_blank" rel="noopener" href="https://github.com/boltomli/custom-voice-api">Find source code of the app</a></ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card lines="none" [class.hide]="!token">
+    <ion-card-header>
+      <ion-card-subtitle>Voice Select</ion-card-subtitle>
+    </ion-card-header>
+    <ion-list>
+      <ion-list-header>Language</ion-list-header>
+      <ion-select [(ngModel)]="language">
+        <ion-select-option value="en-US">English (United States)</ion-select-option>
+      </ion-select>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>Gender</ion-list-header>
+      <ion-select [(ngModel)]="gender" interface="popover">
+        <ion-select-option value="Male">Male</ion-select-option>
+      </ion-select>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>Voice</ion-list-header>
+      <ion-select [(ngModel)]="voice" (ionChange)="voiceSelected();">
+        <ion-select-option *ngFor="let item of voice_items">
+          {{ item }}
+        </ion-select-option>
+      </ion-select>
+    </ion-list>
+    <ion-card-subtitle>Text to Speak</ion-card-subtitle>
+    <ion-textarea [(ngModel)]="text" placeholder="Input text to speak here"></ion-textarea>
+    <ion-button expand="block" (click)="speakText();">Speak</ion-button>
+  </ion-card>
 </ion-content>
