@@ -20,7 +20,7 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card lines="none" [class.hide]="!token">
+  <ion-card [class.hide]="!token">
     <ion-card-header>
       <ion-card-subtitle>Voice Select</ion-card-subtitle>
     </ion-card-header>
@@ -47,5 +47,22 @@
     <ion-card-subtitle>Text to Speak</ion-card-subtitle>
     <ion-textarea [(ngModel)]="text" placeholder="Input text to speak here"></ion-textarea>
     <ion-button expand="block" (click)="speakText();">Speak</ion-button>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Set valid key and region</ion-card-subtitle>
+    </ion-card-header>
+    <ion-list>
+      <ion-list-header>Region</ion-list-header>
+      <ion-select [(ngModel)]="region">
+        <ion-select-option value="westus">westus</ion-select-option>
+      </ion-select>
+    </ion-list>
+    <ion-item>
+      <ion-label position="floating"><ion-icon name="key"></ion-icon> Key</ion-label>
+      <ion-input [(ngModel)]="key" type="text" clearInput></ion-input>
+    </ion-item>
+    <ion-button expand="block" (click)="saveSettings();">Save</ion-button>
   </ion-card>
 </ion-content>
