@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
+import { Platform, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -21,12 +22,13 @@ export class HomePage {
 
   constructor(
     private platform: Platform,
-    private storage: Storage
+    private storage: Storage,
+    private http: HttpClient,
+    private toastCtrl: ToastController
   ) {
     this.platform.ready().then(() => {
       this.storage.get('region').then((region) => {
         this.region = region ? region : 'westus';
-        this.tokenUrl = `https://${this.region}.api.cognitive.microsoft.com/sts/v1.0/issueToken`;
         this.storage.get('key').then((key) => {
           this.key = key;
           this.validateKey();
@@ -40,11 +42,26 @@ export class HomePage {
   }
 
   validateKey() {
-    if (this.key) {
-      this.token = 'placeholder';
-    } else {
-      this.token = '';
-    }
+    this.tokenUrl = `https://${this.region}.api.cognitive.microsoft.com/sts/v1.0/issueToken`;
+    this.http.post(this.tokenUrl, '', {
+      headers: {'Ocp-Apim-Subscription-Key': this.key},
+      responseType: 'text'
+    }).subscribe((token) => {
+      this.token = token;
+      this.toastCtrl.create({
+        message: 'Key validated against Speech Services.',
+        duration: 1000
+      }).then((toast) => {
+        toast.present();
+      });
+    }, (err) => {
+      this.toastCtrl.create({
+        message: 'Wrong key or region?\n' + err.message,
+        duration: 1000
+      }).then((toast) => {
+        toast.present();
+      });
+    });
   }
 
   saveSettings() {
