@@ -20,7 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot({
+      driverOrder: ['sqlite', 'indexeddb', 'websql']
+    }),
     AppRoutingModule,
     HttpClientModule
   ],

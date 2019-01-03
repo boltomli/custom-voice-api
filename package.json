@@ -34,6 +34,7 @@
     "@types/xmlbuilder": "0.0.34",
     "cordova-plugin-file": "6.0.1",
     "cordova-plugin-media": "5.0.2",
+    "cordova-sqlite-storage": "2.6.0",
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
     "xmlbuilder": "^10.1.1",
@@ -69,7 +70,8 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-file": {},
-      "cordova-plugin-media": {}
+      "cordova-plugin-media": {},
+      "cordova-sqlite-storage": {}
     }
   }
 }
