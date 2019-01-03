@@ -1,7 +1,8 @@
 {
   "name": "custom-voice-api",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

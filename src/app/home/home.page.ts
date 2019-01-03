@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Platform, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { File } from '@ionic-native/file/ngx';
+import { Media } from '@ionic-native/media/ngx';
 import xmlbuilder from 'xmlbuilder/lib';
 
 @Component({
@@ -31,7 +33,8 @@ export class HomePage {
     private storage: Storage,
     private http: HttpClient,
     private toastCtrl: ToastController,
-    private audioContext: AudioContext
+    private file: File,
+    private media: Media
   ) {
     this.platform.ready().then(() => {
       this.storage.get('region').then((region) => {
@@ -163,19 +166,35 @@ export class HomePage {
         },
         responseType: 'arraybuffer'
       }).subscribe((synth) => {
-        this.audioContext.decodeAudioData(synth).then((buffer) => {
-          const src = this.audioContext.createBufferSource();
-          src.buffer = buffer;
-          src.connect(this.audioContext.destination);
-          src.start(0);
-        }, (err: Error) => {
-          this.toastCtrl.create({
-            message: err.message,
-            duration: 1000
-          }).then((toast) => {
-            toast.present();
+        if (this.platform.is('hybrid') && !this.platform.is('electron')) {
+          this.file.resolveLocalFilesystemUrl(this.file.cacheDirectory).then(entry => {
+            this.file.writeFile(entry.toInternalURL(), 'synth.wav', synth, {replace: true}).then(fileEntry => {
+              this.media.create(fileEntry.toInternalURL()).play();
+            }, (err: Error) => {
+              this.toastCtrl.create({
+                message: err.message,
+                duration: 1000
+              }).then((toast) => {
+                toast.present();
+              });
+            });
           });
-        });
+        } else {
+          const audioContext = new AudioContext();
+          audioContext.decodeAudioData(synth).then((buffer) => {
+            const src = audioContext.createBufferSource();
+            src.buffer = buffer;
+            src.connect(audioContext.destination);
+            src.start(0);
+          }, (err: Error) => {
+            this.toastCtrl.create({
+              message: err.message,
+              duration: 1000
+            }).then((toast) => {
+              toast.present();
+            });
+          });
+        }
       }, (err: Error) => {
         this.toastCtrl.create({
           message: err.message,
