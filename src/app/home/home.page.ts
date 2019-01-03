@@ -167,7 +167,7 @@ export class HomePage {
         responseType: 'arraybuffer'
       }).subscribe((synth) => {
         if (this.platform.is('hybrid') && !this.platform.is('electron')) {
-          this.file.resolveLocalFilesystemUrl(this.file.cacheDirectory).then(entry => {
+          this.file.resolveLocalFilesystemUrl(this.file.dataDirectory).then(entry => {
             this.file.writeFile(entry.toInternalURL(), 'synth.wav', synth, {replace: true}).then(fileEntry => {
               this.media.create(fileEntry.toInternalURL()).play();
             }, (err: Error) => {
@@ -177,6 +177,13 @@ export class HomePage {
               }).then((toast) => {
                 toast.present();
               });
+            });
+          }, (err: Error) => {
+            this.toastCtrl.create({
+              message: err.message,
+              duration: 1000
+            }).then((toast) => {
+              toast.present();
             });
           });
         } else {
