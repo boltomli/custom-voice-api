@@ -26,7 +26,7 @@ npm install && npm run build
 
 ### Web
 
-Try in browser with `ionic serve`.
+Try in browser with `ionic serve`. Build PWA to deploy with `ionic build --prod --service-worker`.
 
 ### Mobile
 
