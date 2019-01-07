@@ -26,7 +26,7 @@ npm install && npm run build
 
 ### Web
 
-Try in browser with `ionic serve`. Build PWA to deploy with `ionic build --prod --service-worker`.
+Try in browser with `ionic serve`. Build PWA to deploy with `ionic build --prod --service-worker`. Published a demo to [Firebase Hosting](https://custom-voice-demo.firebaseapp.com).
 
 ### Mobile
 
