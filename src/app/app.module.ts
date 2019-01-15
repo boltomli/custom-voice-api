@@ -11,10 +11,11 @@ import { Media } from '@ionic-native/media/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+
+import { StorageService } from '../services/storage';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,9 +23,6 @@ import { environment } from '../environments/environment';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    IonicStorageModule.forRoot({
-      driverOrder: ['sqlite', 'indexeddb', 'websql']
-    }),
     AppRoutingModule,
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
@@ -34,7 +32,8 @@ import { environment } from '../environments/environment';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     File,
-    Media
+    Media,
+    StorageService
   ],
   bootstrap: [AppComponent]
 })

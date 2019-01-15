@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Platform, ToastController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import { StorageService } from '../../services/storage';
 import { File } from '@ionic-native/file/ngx';
 import { Media } from '@ionic-native/media/ngx';
 import xmlbuilder from 'xmlbuilder/lib';
@@ -30,7 +30,7 @@ export class HomePage {
 
   constructor(
     private platform: Platform,
-    private storage: Storage,
+    private storage: StorageService,
     private http: HttpClient,
     private toastCtrl: ToastController,
     private file: File,
