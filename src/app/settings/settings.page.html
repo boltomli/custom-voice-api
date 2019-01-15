@@ -1,9 +1,40 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>settings</ion-title>
+    <ion-title>Settings</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Get Started</ion-card-subtitle>
+      <ion-card-title>Welcome to Custom Voice</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="none">
+        <ion-item><ion-icon name="information-circle-outline"></ion-icon><a target="_blank" rel="noopener" href="https://customvoice.ai">Azure Custom Voice</a></ion-item>
+        <ion-item><ion-icon name="information-circle-outline"></ion-icon><a target="_blank" rel="noopener" href="https://azure.microsoft.com/try/cognitive-services/">Speech Services key</a></ion-item>
+        <ion-item><ion-icon name="information-circle-outline"></ion-icon><a target="_blank" rel="noopener" href="https://github.com/boltomli/custom-voice-api">Find source code of the app</a></ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Set valid key and region</ion-card-subtitle>
+    </ion-card-header>
+    <ion-list>
+      <ion-list-header>Region</ion-list-header>
+      <ion-select [(ngModel)]="region">
+        <ion-select-option value="westus">westus</ion-select-option>
+      </ion-select>
+    </ion-list>
+    <ion-item>
+      <ion-label position="floating"><ion-icon name="key"></ion-icon> Key</ion-label>
+      <ion-input [(ngModel)]="key" type="text" clearInput></ion-input>
+    </ion-item>
+    <ion-button expand="block" (click)="saveSettings();">Save</ion-button>
+  </ion-card>
 
 </ion-content>

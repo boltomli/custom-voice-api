@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Platform, ToastController } from '@ionic/angular';
+import { Platform, ToastController, NavController } from '@ionic/angular';
 import { StorageService } from '../../services/storage';
 import { File } from '@ionic-native/file/ngx';
 import { Media } from '@ionic-native/media/ngx';
@@ -34,7 +34,8 @@ export class HomePage {
     private http: HttpClient,
     private toastCtrl: ToastController,
     private file: File,
-    private media: Media
+    private media: Media,
+    private navCtrl: NavController
   ) {
     this.platform.ready().then(() => {
       this.storage.get('region').then((region) => {
@@ -49,6 +50,7 @@ export class HomePage {
               duration: 1000
             }).then((toast) => {
               toast.present();
+              this.navCtrl.navigateRoot('/settings');
             });
           }
         });
@@ -211,13 +213,5 @@ export class HomePage {
         });
       });
     }
-  }
-
-  saveSettings() {
-    this.storage.set('region', this.region).then(() => {
-      this.storage.set('key', this.key).then(() => {
-        this.getEndpoints();
-      });
-    });
   }
 }
