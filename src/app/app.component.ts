@@ -19,6 +19,11 @@ export class AppComponent {
       title: 'Record',
       url: '/record',
       icon: 'mic'
+    },
+    {
+      title: 'Settings',
+      url: '/settings',
+      icon: 'settings'
     }
   ];
 
