@@ -39,6 +39,7 @@
         <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
+        <preference name="APP_SECRET" value="9f54d511-9724-4a41-a442-7819fd2d3d40" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -86,4 +87,6 @@
     <plugin name="cordova-plugin-media" spec="5.0.2" />
     <plugin name="cordova-sqlite-storage" spec="2.6.0" />
     <plugin name="cordova-plugin-nativestorage" spec="2.3.2" />
+    <plugin name="cordova-plugin-appcenter-analytics" spec="0.3.1" />
+    <plugin name="cordova-plugin-appcenter-crashes" spec="0.3.1" />
 </widget>
