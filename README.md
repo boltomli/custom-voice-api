@@ -21,12 +21,12 @@ Don't have to connect to Ionic Appflow SDK now, press N when it asks.
 
 ```
 git clone https://github.com/boltomli/custom-voice-api.git && cd custom-voice-api
-npm install && npm run build
+yarn && yarn run build
 ```
 
 ### Web
 
-Try in browser with `ionic serve`. Build PWA to deploy with `ionic build --prod --service-worker`. Published a demo to [Firebase Hosting](https://custom-voice-demo.firebaseapp.com).
+Try in browser with `yarn run start` or `ionic serve`. Build PWA to deploy with `ionic build --prod --service-worker`. Published a demo to [Firebase Hosting](https://custom-voice-demo.firebaseapp.com).
 
 ### Mobile
 
