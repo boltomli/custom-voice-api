@@ -3,13 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: './home/home.module#HomePageModule' },
-  { path: 'record', loadChildren: './record/record.module#RecordPageModule' },
-  { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },
+  { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomePageModule) },
+  { path: 'record', loadChildren: () => import('./record/record.module').then(m => m.RecordPageModule) },
+  { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsPageModule) },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
