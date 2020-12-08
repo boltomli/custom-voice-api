@@ -38,7 +38,10 @@
               }
             ],
             "scripts": [],
-            "aot": true
+            "aot": true,
+            "allowedCommonJsDependencies": [
+              "xmlbuilder/lib"
+            ]
           },
           "configurations": {
             "production": {
